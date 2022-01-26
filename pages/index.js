@@ -40,7 +40,7 @@ export default function PaginaInicial() {
   return (
     <>
       <Box
-        styleSheet={{
+        styleSheet={{ //Foto de fundo da foto (principal)
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           backgroundColor: appConfig.theme.colors.primary[500],
           backgroundImage: 'url(https://i.imgur.com/gjEZAJ7.jpeg)',
@@ -136,9 +136,9 @@ export default function PaginaInicial() {
               alignItems: 'center',
               maxWidth: '200px',
               padding: '16px',
-              backgroundColor: appConfig.theme.colors.neutrals[800],
+              backgroundColor: appConfig.theme.colors.neutrals[800], //Ao redor da foto
               border: '1px solid',
-              borderColor: appConfig.theme.colors.neutrals[999],
+              borderColor: appConfig.theme.colors.neutrals[999], //Linha ao redor da foto
               borderRadius: '10px',
               flex: 1,
               minHeight: '240px',
