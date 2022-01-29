@@ -1,49 +1,49 @@
 import { Box, Button, Text, TextField, Image } from '@skynexui/components';
-import appConfig from '../config.json';
 import React from 'react';
 import { useRouter } from 'next/router';
+import appConfig from '../config.json';
 
 function Titulo(props) {
-  console.log(props);
-  const Tag = props.tag;
+  const Tag = props.tag || 'h1';
   return (
     <>
       <Tag>{props.children}</Tag>
       <style jsx>{`
-        ${Tag} {
-            color: ${appConfig.theme.colors.neutrals['000']};
-            font-size: 24px;
-            font-wigth: 600;
-        }
-        `}</style>
+            ${Tag} {
+                color: ${appConfig.theme.colors.neutrals['000']};
+                font-size: 24px;
+                font-weight: 600;
+            }
+            `}</style>
     </>
   );
 }
-//Componente React
-//function HomePage(){
-//    //JSX
-//   return(
-//        <div style={{backgroundColor: 'black'}}>
-//            <GlobalStyle/>
-//            <Titulo tag="h2">Boas vindas de volta!</Titulo>
-//            <h2>Discord - Alura Matrix</h2>
-//        </div>
-//    )
-//}
-//export default HomePage
+
+// Componente React
+// function HomePage() {
+//     // JSX
+//     return (
+//         <div>
+//             <GlobalStyle />
+//             <Titulo tag="h2">Boas vindas de volta!</Titulo>
+//             <h2>Discord - Alura Matrix</h2>
+//         </div>
+//     )
+// }
+// export default HomePage
 
 export default function PaginaInicial() {
-  //const username = 'Jenifer19IFC';
-  const [username, setUsername] = React.useState('Jenifer19IFC');
+  // const username = 'omariosouto';
+  const [username, setUsername] = React.useState('omariosouto');
   const roteamento = useRouter();
 
   return (
     <>
       <Box
-        styleSheet={{ //Foto de fundo da foto (principal)
+        styleSheet={{
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           backgroundColor: appConfig.theme.colors.primary[500],
-          backgroundImage: 'url(https://i.imgur.com/gjEZAJ7.jpeg)',
+          backgroundImage: 'url(https://virtualbackgrounds.site/wp-content/uploads/2020/08/the-matrix-digital-rain.jpg)',
           backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'multiply',
         }}
       >
@@ -66,33 +66,33 @@ export default function PaginaInicial() {
           <Box
             as="form"
             onSubmit={function (infosDoEvento) {
-              infosDoEvento.preventDefault(); //Previne o looping do form depois do "entrar"
+              infosDoEvento.preventDefault();
               console.log('Alguém submeteu o form');
-              roteamento.push('/chat');
-              window.location.href = '/chat';//mudar para chat depois do entrar
+              roteamento.push(`/chat?username=${username}`); //Depois de ?: colocar nome usuário na URL em cima
+              // window.location.href = '/chat';
             }}
             styleSheet={{
               display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
               width: { xs: '100%', sm: '50%' }, textAlign: 'center', marginBottom: '32px',
             }}
           >
-            <Titulo tag="h2">Welcome!</Titulo>
+            <Titulo tag="h2">Boas vindas de volta!</Titulo>
             <Text variant="body3" styleSheet={{ marginBottom: '32px', color: appConfig.theme.colors.neutrals[300] }}>
               {appConfig.name}
             </Text>
 
             {/* <input
-                              type="text"
-                              value={username}
-                              onChange={function (event) {
-                                  console.log('usuario digitou', event.target.value);
-                                  // Onde ta o valor?
-                                  const valor = event.target.value;
-                                  // Trocar o valor da variavel
-                                  // através do React e avise quem precisa
-                                  setUsername(valor);
-                              }}
-                          /> */}
+                            type="text"
+                            value={username}
+                            onChange={function (event) {
+                                console.log('usuario digitou', event.target.value);
+                                // Onde ta o valor?
+                                const valor = event.target.value;
+                                // Trocar o valor da variavel
+                                // através do React e avise quem precisa
+                                setUsername(valor);
+                            }}
+                        /> */}
             <TextField
               value={username}
               onChange={function (event) {
@@ -115,10 +115,10 @@ export default function PaginaInicial() {
             />
             <Button
               type='submit'
-              label='Login'
+              label='Entrar'
               fullWidth
               buttonColors={{
-                contrastColor: appConfig.theme.colors.neutrals["000"], //Botão de login
+                contrastColor: appConfig.theme.colors.neutrals["000"],
                 mainColor: appConfig.theme.colors.primary[500],
                 mainColorLight: appConfig.theme.colors.primary[400],
                 mainColorStrong: appConfig.theme.colors.primary[600],
@@ -136,9 +136,9 @@ export default function PaginaInicial() {
               alignItems: 'center',
               maxWidth: '200px',
               padding: '16px',
-              backgroundColor: appConfig.theme.colors.neutrals[800], //Ao redor da foto
+              backgroundColor: appConfig.theme.colors.neutrals[800],
               border: '1px solid',
-              borderColor: appConfig.theme.colors.neutrals[999], //Linha ao redor da foto
+              borderColor: appConfig.theme.colors.neutrals[999],
               borderRadius: '10px',
               flex: 1,
               minHeight: '240px',
