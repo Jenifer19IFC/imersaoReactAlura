@@ -65,6 +65,7 @@ export default function ChatPage() {
   return (
     <Box
       styleSheet={{
+        wordBreak: 'break-word',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         backgroundColor: appConfig.theme.colors.primary[500],
         backgroundImage: `url(https://virtualbackgrounds.site/wp-content/uploads/2020/08/the-matrix-digital-rain.jpg)`,
@@ -74,6 +75,7 @@ export default function ChatPage() {
     >
       <Box
         styleSheet={{
+          wordBreak: 'break-word',
           display: 'flex',
           flexDirection: 'column',
           flex: 1,
@@ -89,6 +91,7 @@ export default function ChatPage() {
         <Header />  {/*Nossa criação  ------- CHAMA A FUNÇÃO "HEADER"*/}
         <Box
           styleSheet={{
+            wordBreak: 'break-word',
             position: 'relative',
             display: 'flex',
             flex: 1,
@@ -110,6 +113,7 @@ export default function ChatPage() {
           <Box
             as="form"
             styleSheet={{
+              wordBreak: 'break-word',
               display: 'flex',
               alignItems: 'center',
             }}
@@ -149,7 +153,9 @@ export default function ChatPage() {
 function Header() {
   return (
     <>
-      <Box styleSheet={{ width: '100%', marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} >
+      <Box styleSheet={{ 
+        wordBreak: 'break-word',
+        width: '100%', marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} >
         <Text variant='heading5'>
           Chat
         </Text>
@@ -159,7 +165,7 @@ function Header() {
           label='Logout'
           href="/"
         />
-      </Box>s
+      </Box>
     </>
   )
 }
@@ -171,6 +177,7 @@ function MessageList(props) {
     <Box
       tag="ul"
       styleSheet={{
+        wordBreak: 'break-word',
         overflow: 'scroll',
         display: 'flex',
         flexDirection: 'column-reverse',
@@ -195,6 +202,7 @@ function MessageList(props) {
           >
             <Box
               styleSheet={{
+                wordBreak: 'break-word',
                 marginBottom: '8px',
               }}
             >
@@ -213,6 +221,7 @@ function MessageList(props) {
               </Text>
               <Text
                 styleSheet={{
+                  wordBreak: 'break-word',
                   fontSize: '10px',
                   marginLeft: '8px',
                   color: appConfig.theme.colors.neutrals[300],
