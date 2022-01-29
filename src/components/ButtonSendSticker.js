@@ -4,7 +4,7 @@ import appConfig from '../../config.json';
 
 
 export function ButtonSendSticker(props) {
-  const [isOpen, setOpenState] = React.useState('');
+  const [isOpen, setOpenState] = React.useState(''); // Estado para ver o botão está aberto ou não
 
   return (
     <Box
@@ -31,7 +31,7 @@ export function ButtonSendSticker(props) {
           }
         }}
         label="😋"
-        onClick={() => setOpenState(!isOpen)}
+        onClick={() => setOpenState(!isOpen)} //Se tiver true (clique), mostra os stickers. Mas depois que clica fica falso, e depois não mostra mais. 
       />
       {isOpen && (
         <Box

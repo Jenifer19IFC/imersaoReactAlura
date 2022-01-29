@@ -3,7 +3,7 @@ import React from 'react';
 import appConfig from '../config.json';
 import { useRouter } from 'next/router';
 import { createClient } from '@supabase/supabase-js'
-import { ButtonSendSticker} from '../src/components/ButtonSendSticker'; 
+import { ButtonSendSticker } from '../src/components/ButtonSendSticker'; 
 
 
 // Como fazer AJAX: https://medium.com/@omariosouto/entendendo-como-fazer-ajax-com-a-fetchapi-977ff20da3c6
@@ -15,6 +15,14 @@ const SUPABASE_URL = 'https://kysxypdmtxjlkdysdlas.supabase.co';
 //URL do papel de servidor:
 const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+function escutaMensagensEmTempoReal(adicionaMensagem){
+  return supabaseClient
+  .from('mensagens')
+  .on('INSERT', (repostaLive) => {
+    adicionaMensagem(repostaLive.new);
+  })
+  .subscribe();
+} 
 
 export default function ChatPage() {
   const roteamento = useRouter();
@@ -23,8 +31,6 @@ export default function ChatPage() {
   //console.log('usuarioLogado', usuarioLogado);
   const [mensagem, setMensagem] = React.useState('');
   const [listaDeMensagens, setListaDeMensagens] = React.useState([]);
-  
-  
 
   //Acionado somente em determinados casos
   React.useEffect(() => {
@@ -35,6 +41,18 @@ export default function ChatPage() {
       .then(({ data }) => {
         console.log('Dados da consulta:', data);
         setListaDeMensagens(data);
+      });
+
+        //onClick e escutaMensagensEmTempoReal são a mesma coisa
+        //onClick dispara a função e escutaMensagensEmTempoReal... quer executar a função
+      escutaMensagensEmTempoReal((novaMensagem) => {
+        console.log('Nova mensagem:',novaMensagem);
+        setListaDeMensagens((valorAtualDaLista) => {
+          return [
+            novaMensagem,
+            ...valorAtualDaLista,
+          ]
+        });
       });
   }, []); //Se a mensagem mudar, observa as mudanças e roda denovo.
 
@@ -53,10 +71,6 @@ export default function ChatPage() {
       ])
       .then(({ data }) => {
         console.log('Criando mensagem: ', data);
-        setListaDeMensagens([
-          data[0],
-          ...listaDeMensagens, //... espalha a lista no array
-        ]);
       });
 
     setMensagem('');
@@ -142,6 +156,14 @@ export default function ChatPage() {
                 marginRight: '12px',
                 color: appConfig.theme.colors.neutrals[200],
               }}
+            />
+            {/*Call Back --- Quando algo que eu queria terminou, ele executa o que passei*/}
+            <ButtonSendSticker 
+            //interceptação
+                onStickerClick={(sticker) => {
+                      console.log('[USANDO O COMPONENTE] Salva esse sticker no banco', sticker);
+                      handleNovaMensagem(':sticker:' + sticker);
+               }}
             />
           </Box>
         </Box>
@@ -231,7 +253,16 @@ function MessageList(props) {
                 {(new Date().toLocaleDateString())}
               </Text>
             </Box>
-            {mensagem.texto}
+            {/* Declarativo */}
+            {/* Condicional: {mensagem.texto.startsWith(':sticker').toString()}*/}
+            {mensagem.texto.startsWith(':sticker')
+             ? ( // É sticker?Se sim...
+                <Image src={mensagem.texto.replace(':sticker','')} /> // REPLACE tira o pedaço ali
+            )
+            :(//Caso contrário...
+              mensagem.texto
+            )}
+            {/*mensagem.texto*/ }
           </Text>
         );
       })}
